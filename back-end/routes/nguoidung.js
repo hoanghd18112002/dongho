@@ -71,17 +71,17 @@ route.get('/get-by-id/:id', function(req, res){
 route.post('/create', function(req, res) {
     var taikhoan = req.body.TaiKhoan;
     var matkhau = req.body.MatKhau;
-    var email = req.body.Email;
-    var ten = req.body.Ten;
+    var hoten = req.body.HoTen;
+    var gmail = req.body.Gmail;
     var diachi = req.body.DiaChi;
-    var sdt = req.body.SoDienThoai;
-    var idquyen = req.body.Quyen_ID;
+    var sdt = req.body.SDT;
+    var quyen = req.body.Quyen;
 
     var hashedPassword = crypto.createHash('md5').update(matkhau).digest('hex');
 
     // Truy vấn để kiểm tra tài khoản đã tồn tại chưa
     var checkAccountSql = "CALL sp_nguoidung_kiemtra(?, ?)";
-    db.query(checkAccountSql, [taikhoan, email], (err, rows) => {
+    db.query(checkAccountSql, [taikhoan, gmail], (err, rows) => {
         if (err) return res.status(500).json({ error: "Có lỗi xảy ra khi kiểm tra tài khoản" });
         
         // Kiểm tra xem có bất kỳ hàng nào được trả về không
@@ -91,9 +91,9 @@ route.post('/create', function(req, res) {
         } else {
             // Nếu không có, tiến hành tạo tài khoản
             var createAccountSql = "CALL sp_nguoidung_create(?, ?, ?, ?, ?, ?, ?)";
-            db.query(createAccountSql, [taikhoan, hashedPassword, email, ten, diachi, sdt, idquyen], (err, rows) => {
+            db.query(createAccountSql, [taikhoan, hashedPassword, hoten, gmail, diachi, sdt, quyen], (err, rows) => {
                 if (err) return res.status(500).json({ error: "Có lỗi xảy ra khi tạo tài khoản" });
-                res.json({ success: true, message: "Đăng ký thành công", data: rows[0] });
+                res.json({ success: true, message: "Đăng ký thành công" + quyen, data: rows[0] });
             });
         }
     });
@@ -104,16 +104,16 @@ route.post('/create', function(req, res) {
 route.put('/update', ensureToken, function(req, res){
     var id = req.body.ID;
     var matkhau = req.body.MatKhau;
-    var ten = req.body.Ten;
+    var hoten = req.body.HoTen;
     var diachi = req.body.DiaChi;
-    var sdt = req.body.SoDienThoai;
-    var idquyen = req.body.Quyen_ID;
+    var sdt = req.body.SDT;
+    var quyen = req.body.Quyen;
 
     var hashedPassword = crypto.createHash('md5').update(matkhau).digest('hex');
 
     var sql = "CALL sp_nguoidung_update(?, ?, ?, ?, ?, ?)";
 
-    db.query(sql, [id, hashedPassword, ten, diachi, sdt, idquyen], (err, rows) => {
+    db.query(sql, [id, hashedPassword, hoten, diachi, sdt, quyen], (err, rows) => {
         if (err) return res.status(500).json({ error: "Có lỗi xảy ra" });
         res.json({ success: true, message: "Sửa thành công", data: rows[0] });
     });

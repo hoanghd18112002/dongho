@@ -145,17 +145,18 @@ function create(req, res, img) {
     var anh = img;
     var gia = req.body.Gia;
     var soluong = req.body.SoLuong;
-    var thuonghieu = req.body.ThuongHieu;
-    var dieukienbaoquan = req.body.DieuKienBaoQuan;
-    var congdung = req.body.CongDung;
-    var xuatxu = req.body.XuatXu;
-    var dungtich = req.body.DungTich;
+    var kinh = req.body.Kinh;
+    var may = req.body.May;
+    var duongkinh = req.body.DuongKinh;
+    var mau = req.body.Mau;
+    var chucnang = req.body.ChucNang;
+    var noisanxuat = req.body.NoiSanXuat;
     var mota = req.body.MoTa;
-    var idloai = req.body.Loai_ID;
+    var iddanhmuc = req.body.DanhMuc_ID;
 
-    var sql = "CALL sp_sanpham_create(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    var sql = "CALL sp_sanpham_create(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-    db.query(sql, [ten, anh, gia, soluong, thuonghieu, dieukienbaoquan, congdung, xuatxu, dungtich, mota, idloai], (err, rows) => {
+    db.query(sql, [ten, anh, gia, soluong, kinh, may, duongkinh, mau, chucnang, noisanxuat, mota, iddanhmuc], (err, rows) => {
         if (err) return res.status(500).json({ error: "Có lỗi xảy ra" });
         res.json({ success: true, message: "Thêm thành công", data: rows[0] });
     });
@@ -185,7 +186,7 @@ route.put('/update', ensureToken, function(req, res) {
             });
         });
     } else {
-        create(req, res, req.body.anh);
+        update(req, res, req.body.anh);
     }
 });
 
@@ -196,17 +197,18 @@ function update(req, res, img) {
     var anh = img;
     var gia = req.body.Gia;
     var soluong = req.body.SoLuong;
-    var thuonghieu = req.body.ThuongHieu;
-    var dieukienbaoquan = req.body.DieuKienBaoQuan;
-    var congdung = req.body.CongDung;
-    var xuatxu = req.body.XuatXu;
-    var dungtich = req.body.DungTich;
+    var kinh = req.body.Kinh;
+    var may = req.body.May;
+    var duongkinh = req.body.DuongKinh;
+    var mau = req.body.Mau;
+    var chucnang = req.body.ChucNang;
+    var noisanxuat = req.body.NoiSanXuat;
     var mota = req.body.MoTa;
-    var idloai = req.body.Loai_ID;
+    var iddanhmuc = req.body.DanhMuc_ID;
 
-    var sql = "CALL sp_sanpham_update(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    var sql = "CALL sp_sanpham_update(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-    db.query(sql, [id, ten, anh, gia, soluong, thuonghieu, dieukienbaoquan, congdung, xuatxu, dungtich, mota, idloai], (err, rows) => {
+    db.query(sql, [id, ten, anh, gia, soluong, kinh, may, duongkinh, mau, chucnang, noisanxuat, mota, iddanhmuc], (err, rows) => {
         if (err) return res.status(500).json({ error: "Có lỗi xảy ra" });
         res.json({ success: true, message: "Sửa thành công", data: rows[0] });
     });

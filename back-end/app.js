@@ -32,21 +32,25 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //Khai báo ứng dụng mới-----------------------------------------------------
 
+//Danh mục
+var danhmucRouter = require('./routes/danhmuc');
+app.use('/danhmuc', danhmucRouter);
+
 //Đơn hàng
 var donhangRouter = require('./routes/donhang');
 app.use('/donhang', donhangRouter);
 
-//Loại sản phẩm
-var loaisanphamRouter = require('./routes/loaisanpham');
-app.use('/loaisanpham', loaisanphamRouter);
+//Giới thiệu
+var gioithieuRouter = require('./routes/gioithieu');
+app.use('/gioithieu', gioithieuRouter);
+
+//Liên hệ
+var lienheRouter = require('./routes/lienhe');
+app.use('/lienhe', lienheRouter);
 
 //Người dùng
 var nguoidungRouter = require('./routes/nguoidung');
 app.use('/nguoidung', nguoidungRouter);
-
-//Quyền
-var quyenRouter = require('./routes/quyen');
-app.use('/quyen', quyenRouter);
 
 //Sản phẩm
 var sanphamRouter = require('./routes/sanpham');
@@ -55,10 +59,6 @@ app.use('/sanpham', sanphamRouter);
 //Slide
 var slideRouter = require('./routes/slide');
 app.use('/slide', slideRouter);
-
-//Tin tức
-var tintucRouter = require('./routes/tintuc');
-app.use('/tintuc', tintucRouter);
 
 //Kết thúc khai báo ứng dụng------------------------------------------------
 

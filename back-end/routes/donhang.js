@@ -52,9 +52,9 @@ route.get('/get-by-id/:id', function(req, res){
 
 //Thêm---------------------------------------------------------------
 route.post('/create', function(req, res) {
-    var ten = req.body.Ten;
-    var diachi = req.body.DiaChi;
-    var sodienthoai = req.body.SoDienThoai; 
+    var hoten = req.body.HoTen;
+    var noigiao = req.body.NoiGiao;
+    var sdt = req.body.SDT; 
     var trangthai = req.body.TrangThai;
     var idnguoidung = req.body.NguoiDung_ID;
     var listchitiet = req.body.ListChiTiet; // Không cần chuyển đổi thành chuỗi JSON
@@ -63,13 +63,11 @@ route.post('/create', function(req, res) {
 
     var sql = "CALL sp_donhang_create(?, ?, ?, ?, ?, ?)";
 
-    db.query(sql, [ten, diachi, sodienthoai, trangthai, idnguoidung, jsonData], (err, rows) => {
+    db.query(sql, [hoten, noigiao, sdt, trangthai, idnguoidung, jsonData], (err, rows) => {
         if (err) return res.status(500).json({ error: "Có lỗi xảy ra"});
         res.json({ success: true, message: "Thêm thành công", data: rows[0] });
     });
 });
-
-
 
 //Sửa thay đổi trạng thái--------------------------------------------
 route.put('/update', ensureToken, function(req, res){
