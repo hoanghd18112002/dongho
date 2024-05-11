@@ -142,7 +142,7 @@ route.post('/create', ensureToken, function(req, res) {
 //Thêm-------------------------------------------------------------
 function create(req, res, img) {
     var ten = req.body.Ten;
-    var anh = img;
+    var anh = img ? img : null;
     var gia = req.body.Gia;
     var soluong = req.body.SoLuong;
     var kinh = req.body.Kinh;
@@ -194,7 +194,7 @@ route.put('/update', ensureToken, function(req, res) {
 function update(req, res, img) {
     var id = req.body.ID;
     var ten = req.body.Ten;
-    var anh = img;
+    var anh = img ? img : null;
     var gia = req.body.Gia;
     var soluong = req.body.SoLuong;
     var kinh = req.body.Kinh;
