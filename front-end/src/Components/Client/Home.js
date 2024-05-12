@@ -3,8 +3,8 @@ import { GetSanPham_asc } from '../../services/sanphamService';
 import { GetSlide_Asc } from '../../services/slideService';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 const Home = () => {
-
     const [data, setData] = useState([]);
+    const [listS]
     useEffect(() => {
         //getSlide();
         getSanPham_asc();
