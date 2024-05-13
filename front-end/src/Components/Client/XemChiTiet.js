@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { GetByID } from '../../services/sanphamService';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import { addToCart } from '../../redux/slices/cartSlice';
+import { useDispatch } from 'react-redux';
 const XemChiTiet = () => {
 
     const { id } = useParams();
     const [product, setProduct] = useState({});
-
+    const [quantity, setQuantity] = useState(1);
     useEffect(() => {
         getTheoMa();
     }, []);
@@ -18,6 +20,22 @@ const XemChiTiet = () => {
             console.error('ID is undefined');
         }
     }
+    const dispatch = useDispatch();
+    const Themvaogio = () => {
+        if (product) {
+            const sanpham = {
+                MaSanPham: product[0]?.ID,
+                TenSP: product[0]?.Ten,
+                AnhDaiDien: product[0]?.Anh,
+                SoLuong: quantity,
+                DonGia: product[0]?.Gia,
+            };
+            dispatch(addToCart(sanpham));
+            alert("Sản phẩm đã được thêm vào giỏ hàng");
+        } else {
+            console.error('Product is undefined');
+        }
+    };
     return (
         <>
             <br />
@@ -134,8 +152,8 @@ const XemChiTiet = () => {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="product__rating-legend"><a >7 Reviews</a><span>/</span><a
-                                        href="#">Write A Review</a></div>
+                                    <div className="product__rating-legend"><a >7 Reviews</a><span>/</span><Link
+                                    >Write A Review</Link></div>
                                 </div>
                                 <div className="product__description">{product[0]?.MoTa.length > 400 ? `${product[0]?.MoTa.substring(0, 400)}...` : product[0]?.MoTa}</div>
 
@@ -154,12 +172,13 @@ const XemChiTiet = () => {
                                             <div className="product__actions-item">
                                                 <div className="input-number product__quantity"><input id="product-quantity"
                                                     className="input-number__input form-control form-control-lg"
-                                                    type="number" min="1" value="1" />
-                                                    <div className="input-number__add"></div>
-                                                    <div className="input-number__sub"></div>
+                                                    type="number" value={quantity}
+                                                    onChange={(e) => setQuantity(parseInt(e.target.value))}
+                                                    min="1" />
                                                 </div>
                                             </div>
                                             <div className="product__actions-item product__actions-item--addtocart"><button
+                                                onClick={Themvaogio}
                                                 className="btn btn-primary btn-lg">Add to cart</button></div>
                                             <div className="product__actions-item product__actions-item--wishlist"><button
                                                 type="button" className="btn btn-secondary btn-svg-icon btn-lg"

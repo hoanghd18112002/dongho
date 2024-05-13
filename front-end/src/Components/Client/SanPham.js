@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { GetSanPham_asc } from '../../services/sanphamService';
+import { GetSanPham_asc, GetByID } from '../../services/sanphamService';
 import { Container, Row, Col, Card, Button, Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../../redux/slices/cartSlice';
 const SanPham = () => {
     const [data, setData] = useState([]);
 
@@ -19,7 +21,21 @@ const SanPham = () => {
             console.error('Error fetching data:', error);
         }
     }
-
+    const dispatch = useDispatch();
+    const Themvaogio = (MaSanPham, soluong) => {
+        GetByID(MaSanPham).then(res => {
+            console.log(res)
+            const sanpham = {
+                MaSanPham: res.data[0]?.ID,
+                TenSP: res.data[0]?.Ten,
+                AnhDaiDien: res.data[0]?.Anh,
+                SoLuong: soluong,
+                DonGia: res.data[0]?.Gia,
+            };
+            dispatch(addToCart(sanpham));
+            alert("Sản phẩm đã được thêm vào giỏ hàng");
+        });
+    };
     return (
         <>
             <br />
@@ -52,7 +68,7 @@ const SanPham = () => {
                                         <div className="product-card__actions">
                                             <div className="product-card__prices">{item.Gia.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</div>
                                             <div className="product-card__buttons">
-                                                <Button variant="primary" className="product-card__addtocart" type="button">
+                                                <Button variant="primary" onClick={() => { Themvaogio(item.ID, 1) }} className="product-card__addtocart" type="button">
                                                     Add To Cart
                                                 </Button>
                                             </div>

@@ -160,7 +160,7 @@ const Header = () => {
                                                 </span>
                                             </Nav.Link>
                                         </div>
-                                        <div className="indicator indicator--trigger--click">
+                                        <Nav.Item className="indicator indicator--trigger--click">
                                             <Nav.Link as={Link} to="/giohang" className="indicator__button">
                                                 <span className="indicator__area">
                                                     <svg width="20px" height="20px">
@@ -169,8 +169,7 @@ const Header = () => {
                                                     <span className="indicator__value">{totalQuantity}</span>
                                                 </span>
                                             </Nav.Link>
-
-                                        </div>
+                                        </Nav.Item>
                                     </div>
                                 </div>
                             </div>

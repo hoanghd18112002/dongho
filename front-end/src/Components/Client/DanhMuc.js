@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Col, Card, Button, Nav, Container, Row } from 'react-bootstrap';
 import { Link, useParams } from 'react-router-dom';
 import { GetLoaiSanPhamALL } from '../../services/loaisanphamService';
-import { getDanhMuc } from '../../services/sanphamService';
+import { getDanhMuc, GetByID } from '../../services/sanphamService';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../../redux/slices/cartSlice';
 const DanhMuc = () => {
     const { id } = useParams();
     const [loaisp, setLoaisp] = useState([]);
@@ -30,6 +32,21 @@ const DanhMuc = () => {
             console.error('ID is undefined');
         }
     }
+    const dispatch = useDispatch();
+    const Themvaogio = (MaSanPham, soluong) => {
+        GetByID(MaSanPham).then(res => {
+            console.log(res)
+            const sanpham = {
+                MaSanPham: res.data[0]?.ID,
+                TenSP: res.data[0]?.Ten,
+                AnhDaiDien: res.data[0]?.Anh,
+                SoLuong: soluong,
+                DonGia: res.data[0]?.Gia,
+            };
+            dispatch(addToCart(sanpham));
+            alert("Sản phẩm đã được thêm vào giỏ hàng");
+        });
+    };
     return (
         <>
             <br />
@@ -88,7 +105,7 @@ const DanhMuc = () => {
                                                             <div className="product-card__actions">
                                                                 <div className="product-card__prices">{item.Gia.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</div>
                                                                 <div className="product-card__buttons">
-                                                                    <Button variant="primary" className="product-card__addtocart" type="button">
+                                                                    <Button onClick={() => { Themvaogio(item.ID, 1) }} variant="primary" className="product-card__addtocart" type="button">
                                                                         Add To Cart
                                                                     </Button>
                                                                 </div>
