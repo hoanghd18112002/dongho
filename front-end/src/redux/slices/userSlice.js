@@ -5,11 +5,11 @@ export const userSlice = createSlice({
         account: {
             ID: '',
             Taikhoan: '',
-            Email: '',
+            Gmail: '',
             HoTen: '',
             AnhDaiDien: '',
             token: '',
-            Quyen_ID: '',
+            Quyen: '',
         },
         loggedIn: false,
     },
@@ -24,9 +24,9 @@ export const userSlice = createSlice({
                     account: {
                         ID: action.payload ? action.payload.ID || '' : '',
                         TaiKhoan: action.payload ? action.payload.TaiKhoan || '' : '',
-                        Email: action.payload ? action.payload.Email || '' : '',
-                        HoTen: action.payload ? action.payload.Ten || '' : '',
-                        Quyen_ID: action.payload ? action.payload.Quyen_ID || '' : ''
+                        Gmail: action.payload ? action.payload.Gmail || '' : '',
+                        HoTen: action.payload ? action.payload.HoTen || '' : '',
+                        Quyen: action.payload ? action.payload.Quyen || '' : ''
                     },
                 },
                 loggedIn: true
@@ -43,7 +43,7 @@ export const userSlice = createSlice({
                     HoTen: '',
                     AnhDaiDien: '',
                     token: '',
-                    Quyen_ID: '',
+                    Quyen: '',
                 }
             };
         },

@@ -1,16 +1,46 @@
 import React, { useEffect, useState } from 'react';
-import { GetSanPham_asc } from '../../services/sanphamService';
+import { GetSanPham_asc, GetSanPhamNgauNhien, GetByID } from '../../services/sanphamService';
 import { GetSlide_Asc } from '../../services/slideService';
-import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import { Container, Row, Col, Card, Button, Carousel, Nav } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../../redux/slices/cartSlice';
 const Home = () => {
     const [data, setData] = useState([]);
-    const [listS]
+    const [listSlide, setListSlide] = useState([]);
+    const [currentSlide, setCurrentSlide] = useState(0);
+    const [data1, setData1] = useState([]);
     useEffect(() => {
-        //getSlide();
+        getSlide();
         getSanPham_asc();
-        //getNgauNhien();
-        //getLoaiSP();
+        getNgauNhien();
     }, [])
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentSlide((prevSlide) => (prevSlide === listSlide.length - 1 ? 0 : prevSlide + 1));
+        }, 10000);
+
+        return () => {
+            clearInterval(interval);
+        };
+    }, [listSlide]);
+
+    const dispatch = useDispatch();
+    const Themvaogio = (MaSanPham, soluong) => {
+        GetByID(MaSanPham).then(res => {
+            console.log(res)
+            const sanpham = {
+                MaSanPham: res.data[0]?.ID,
+                TenSP: res.data[0]?.Ten,
+                AnhDaiDien: res.data[0]?.Anh,
+                SoLuong: soluong,
+                DonGia: res.data[0]?.Gia,
+            };
+            dispatch(addToCart(sanpham));
+            alert("Sản phẩm đã được thêm vào giỏ hàng");
+        });
+    };
     const getSanPham_asc = async () => {
         try {
             const res = await GetSanPham_asc();
@@ -21,58 +51,48 @@ const Home = () => {
             console.error('Error fetching data:', error);
         }
     }
+    const getNgauNhien = async () => {
+        try {
+            const res = await GetSanPhamNgauNhien();
+            const data = res && res.data ? res.data : res
+            setData1(data);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
+    const getSlide = async () => {
+        try {
+            const res = await GetSlide_Asc();
+            const data = res && res.data ? res.data : res
+            setListSlide(data);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
     return (
         <>
-            <div className="block-slideshow block-slideshow--layout--with-departments block">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-12 col-lg-9 offset-lg-3">
-                            <div className="block-slideshow__body">
-                                <div className="owl-carousel">
-                                    <a className="block-slideshow__slide" href="#">
-                                        <div className="block-slideshow__slide-image block-slideshow__slide-image--desktop"
-                                            style={{ backgroundImage: "url('images/slides/slide-1.jpg')" }}></div>
-                                        <div className="block-slideshow__slide-image block-slideshow__slide-image--mobile"
-                                            style={{ backgroundImage: "url('images/slides/slide-1-mobile.jpg')" }}></div>
-                                        <div className="block-slideshow__slide-content">
-                                            <div className="block-slideshow__slide-title">Big choice of<br />Plumbing products</div>
-                                            <div className="block-slideshow__slide-text">Lorem ipsum dolor sit amet,
-                                                consectetur adipiscing elit.<br />Etiam pharetra laoreet dui quis molestie.</div>
-                                            <div className="block-slideshow__slide-button">
-                                                <span className="btn btn-primary btn-lg">Shop Now</span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a className="block-slideshow__slide" href="#">
-                                        <div className="block-slideshow__slide-image block-slideshow__slide-image--desktop"
-                                            style={{ backgroundImage: "url('images/slides/slide-2.jpg')" }}></div>
-                                        <div className="block-slideshow__slide-image block-slideshow__slide-image--mobile"
-                                            style={{ backgroundImage: "url('images/slides/slide-2-mobile.jpg')" }}></div>
-                                        <div className="block-slideshow__slide-content">
-                                            <div className="block-slideshow__slide-title">Screwdrivers<br />Professional Tools</div>
-                                            <div className="block-slideshow__slide-text">Lorem ipsum dolor sit amet,
-                                                consectetur adipiscing elit.<br />Etiam pharetra laoreet dui quis molestie.</div>
-                                            <div className="block-slideshow__slide-button">
-                                                <span className="btn btn-primary btn-lg">Shop Now</span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a className="block-slideshow__slide" href="#">
-                                        <div className="block-slideshow__slide-image block-slideshow__slide-image--desktop"
-                                            style={{ backgroundImage: "url('images/slides/slide-3.jpg')" }}></div>
-                                        <div className="block-slideshow__slide-image block-slideshow__slide-image--mobile"
-                                            style={{ backgroundImage: "url('images/slides/slide-3-mobile.jpg')" }}></div>
-                                        <div className="block-slideshow__slide-content">
-                                            <div className="block-slideshow__slide-title">One more<br />Unique header</div>
-                                            <div className="block-slideshow__slide-text">Lorem ipsum dolor sit amet,
-                                                consectetur adipiscing elit.<br />Etiam pharetra laoreet dui quis molestie.</div>
-                                            <div className="block-slideshow__slide-button">
-                                                <span className="btn btn-primary btn-lg">Shop Now</span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
+            <br />
+            <div className="container">
+                <div className="row justify-content-center">
+                    <div className="col-xs-12 col-sm-12 col-md-9">
+                        <div className="block-slideshow block-slideshow--layout--with-departments block" style={{ width: '1500px' }}>
+                            <Container>
+                                <Row>
+                                    <Col xs={12} sm={12} md={9} className="homebanner-holder">
+                                        <Carousel activeIndex={currentSlide} onSelect={setCurrentSlide}>
+                                            {listSlide.map((item, index) => (
+                                                <Carousel.Item key={index}>
+                                                    <img
+                                                        className="d-block w-100"
+                                                        src={`data:image/jpg;base64,${item.Anh}`}
+                                                        style={{ height: '500px', objectFit: 'cover' }}
+                                                    />
+                                                </Carousel.Item>
+                                            ))}
+                                        </Carousel>
+                                    </Col>
+                                </Row>
+                            </Container>
                         </div>
                     </div>
                 </div>
@@ -135,11 +155,53 @@ const Home = () => {
             <div className="block block-products-carousel" data-layout="grid-4">
                 <Container>
                     <div className="block-header">
-                        <h3 className="block-header__title">Sản Phẩm</h3>
+                        <h3 className="block-header__title">Sản phẩm</h3>
                         <div className="block-header__divider"></div>
                     </div>
                     <Row className="block-products-carousel__slider">
                         {data.map((item, index) => (
+                            <Col key={index} xs={12} sm={6} md={3}>
+                                <Card className="product-card">
+                                    <Card.Body>
+                                        <div className="product-card__badges-list">
+                                            <div className="product-card__badge product-card__badge--hot">Hot</div>
+                                        </div>
+                                        <div className="product-card__image">
+                                            <a >
+                                                <Card.Img variant="top" src={`data:image/jpg;base64,${item.Anh}`} alt="" />
+                                            </a>
+                                        </div>
+                                        <div className="product-card__info">
+                                            <div className="product-card__name">
+                                                <Nav.Link as={Link} to={`/XemChiTiet/${item.ID}`}>
+                                                    {item.Ten.length > 25 ? `${item.Ten.substring(0, 25)}...` : item.Ten}
+                                                </Nav.Link>
+                                            </div>
+                                        </div>
+                                        <div className="product-card__actions">
+                                            <div className="product-card__prices">{item.Gia.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</div>
+                                            <div className="product-card__buttons">
+                                                <Button variant="primary" onClick={() => { Themvaogio(item.ID, 1) }} className="product-card__addtocart" type="button">
+                                                    Add To Cart
+                                                </Button>
+                                            </div>
+                                        </div>
+                                    </Card.Body>
+                                </Card>
+                            </Col>
+                        ))}
+                    </Row>
+                </Container>
+            </div>
+
+            <div className="block block-products-carousel" data-layout="grid-4">
+                <Container>
+                    <div className="block-header">
+                        <h3 className="block-header__title">Sản phẩm ngẫu nhiên</h3>
+                        <div className="block-header__divider"></div>
+                    </div>
+                    <Row className="block-products-carousel__slider">
+                        {data1.map((item, index) => (
                             <Col key={index} xs={12} sm={6} md={3}>
                                 <Card className="product-card">
                                     <Card.Body>
@@ -153,18 +215,15 @@ const Home = () => {
                                         </div>
                                         <div className="product-card__info">
                                             <div className="product-card__name">
-                                                <a href="product.html">
-                                                    {item.Ten.length > 11 ? `${item.Ten.substring(0, 11)}...` : item.Ten}
-                                                </a>
+                                                <Nav.Link as={Link} to={`/XemChiTiet/${item.ID}`}>
+                                                    {item.Ten.length > 25 ? `${item.Ten.substring(0, 25)}...` : item.Ten}
+                                                </Nav.Link>
                                             </div>
                                         </div>
                                         <div className="product-card__actions">
-                                            <div className="product-card__availability">
-                                                Availability: <span className="text-success">In Stock</span>
-                                            </div>
-                                            <div className="product-card__prices">$1,019.00</div>
+                                            <div className="product-card__prices">{item.Gia.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</div>
                                             <div className="product-card__buttons">
-                                                <Button variant="primary" className="product-card__addtocart" type="button">
+                                                <Button variant="primary" onClick={() => { Themvaogio(item.ID, 1) }} className="product-card__addtocart" type="button">
                                                     Add To Cart
                                                 </Button>
                                             </div>
