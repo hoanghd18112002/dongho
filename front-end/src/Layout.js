@@ -12,6 +12,7 @@ import DangNhap from './Components/Auth/Login';
 import GioHang from './Components/Client/GioHang';
 import ThanhToan from './Components/Client/ThanhToan';
 import Dangky from './Components/Auth/DangKy';
+import ThongTinUser from './Components/Client/ThongTinUser.';
 
 const Layout = () => {
     return (
@@ -31,6 +32,7 @@ const Layout = () => {
                                 <Route path='lienhe' element={<LienHe />} />
                                 <Route path='giohang' element={<GioHang />} />
                                 <Route path='thanhtoan' element={<ThanhToan />} />
+                                <Route path='taikhoan' element={<ThongTinUser />} />
                             </Route>
                             <Route path='/login' element={<DangNhap />} />
                             <Route path='/dangky' element={<Dangky />} />

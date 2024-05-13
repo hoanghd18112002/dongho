@@ -10,6 +10,8 @@ export const userSlice = createSlice({
             AnhDaiDien: '',
             token: '',
             Quyen: '',
+            SoDienThoai: '',
+            DiaChi: ''
         },
         loggedIn: false,
     },
@@ -26,7 +28,9 @@ export const userSlice = createSlice({
                         TaiKhoan: action.payload ? action.payload.TaiKhoan || '' : '',
                         Gmail: action.payload ? action.payload.Gmail || '' : '',
                         HoTen: action.payload ? action.payload.HoTen || '' : '',
-                        Quyen: action.payload ? action.payload.Quyen || '' : ''
+                        Quyen: action.payload ? action.payload.Quyen || '' : '',
+                        SoDienThoai: action.payload ? action.payload.SDT || '' : '',
+                        DiaChi: action.payload ? action.payload.DiaChi || '' : '',
                     },
                 },
                 loggedIn: true
@@ -44,6 +48,8 @@ export const userSlice = createSlice({
                     AnhDaiDien: '',
                     token: '',
                     Quyen: '',
+                    SoDienThoai: '',
+                    DiaChi: ''
                 }
             };
         },

@@ -63,6 +63,7 @@ const Header = () => {
                                 {user?.account?.HoTen ? (
                                     <NavDropdown title={user.account.HoTen} id="basic-nav-dropdown">
                                         <NavDropdown.Item onClick={onLogout}>Logout</NavDropdown.Item>
+                                        <NavDropdown.Item as={Link} to="/taikhoan">Thông tin tài khoản</NavDropdown.Item>
                                     </NavDropdown>
                                 ) : (
                                     <NavDropdown title="My Account" id="basic-nav-dropdown">
