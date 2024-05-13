@@ -5,7 +5,7 @@
     try {
         new CustomEvent('IE has CustomEvent, but doesn\'t support constructor');
     } catch (e) {
-        window.CustomEvent = function(event, params) {
+        window.CustomEvent = function (event, params) {
             let evt;
             params = params || {
                 bubbles: false,
@@ -40,13 +40,10 @@
             self._change(1);
             self._changeByTimer(1);
         };
-
-        this.sub.addEventListener('mousedown', this._subHandler, false);
-        this.add.addEventListener('mousedown', this._addHandler, false);
     }
 
     CustomNumber.prototype = {
-        destroy: function() {
+        destroy: function () {
             this.sub.removeEventListener('mousedown', this._subHandler, false);
             this.add.removeEventListener('mousedown', this._addHandler, false);
         },
@@ -55,7 +52,7 @@
          * @param {number} direction - one of [-1, 1]
          * @private
          */
-        _change: function(direction) {
+        _change: function (direction) {
             const step = this._step();
             const min = this._min();
             const max = this._max();
@@ -74,7 +71,7 @@
             this.input.value = value;
 
             if (triggerChange) {
-                this.input.dispatchEvent(new CustomEvent('change', {bubbles: true}));
+                this.input.dispatchEvent(new CustomEvent('change', { bubbles: true }));
             }
         },
 
@@ -82,7 +79,7 @@
          * @param {number} direction - one of [-1, 1]
          * @private
          */
-        _changeByTimer: function(direction) {
+        _changeByTimer: function (direction) {
             const self = this;
 
             let interval;
@@ -106,7 +103,7 @@
          * @return {number}
          * @private
          */
-        _step: function() {
+        _step: function () {
             let step = 1;
 
             if (this.input.hasAttribute('step')) {
@@ -121,7 +118,7 @@
          * @return {?number}
          * @private
          */
-        _min: function() {
+        _min: function () {
             let min = null;
             if (this.input.hasAttribute('min')) {
                 min = parseFloat(this.input.getAttribute('min'));
@@ -135,7 +132,7 @@
          * @return {?number}
          * @private
          */
-        _max: function() {
+        _max: function () {
             let max = null;
             if (this.input.hasAttribute('max')) {
                 max = parseFloat(this.input.getAttribute('max'));
@@ -149,7 +146,7 @@
          * @return {number}
          * @private
          */
-        _value: function() {
+        _value: function () {
             let value = parseFloat(this.input.value);
 
             return isNaN(value) ? 0 : value;
@@ -158,7 +155,7 @@
 
     /** @this {HTMLElement} */
     $.fn.customNumber = function (options) {
-        options = $.extend({destroy: false}, options);
+        options = $.extend({ destroy: false }, options);
 
         return this.each(function () {
             if (!$(this).is('.input-number')) {

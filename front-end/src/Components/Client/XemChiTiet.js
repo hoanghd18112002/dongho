@@ -170,16 +170,19 @@ const XemChiTiet = () => {
                                         htmlFor="product-quantity">Quantity</label>
                                         <div className="product__actions">
                                             <div className="product__actions-item">
-                                                <div className="input-number product__quantity"><input id="product-quantity"
-                                                    className="input-number__input form-control form-control-lg"
-                                                    type="number" value={quantity}
-                                                    onChange={(e) => setQuantity(parseInt(e.target.value))}
-                                                    min="1" />
+                                                <div className="input-number product__quantity">
+                                                    <input id="product-quantity"
+                                                        className="input-number__input form-control form-control-lg"
+                                                        type="number" value={quantity}
+                                                        onChange={(e) => setQuantity(parseInt(e.target.value))}
+                                                        min="1" />
                                                 </div>
                                             </div>
-                                            <div className="product__actions-item product__actions-item--addtocart"><button
-                                                onClick={Themvaogio}
-                                                className="btn btn-primary btn-lg">Add to cart</button></div>
+                                            <div className="product__actions-item product__actions-item--addtocart">
+
+                                                <button onClick={(e) => { e.preventDefault(); Themvaogio(); }} className="btn btn-primary btn-lg">Add to cart
+                                                </button>
+                                            </div>
                                             <div className="product__actions-item product__actions-item--wishlist"><button
                                                 type="button" className="btn btn-secondary btn-svg-icon btn-lg"
                                                 data-toggle="tooltip" title="Wishlist"><svg width="16px"
