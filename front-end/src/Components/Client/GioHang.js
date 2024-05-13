@@ -7,7 +7,6 @@ const GioHang = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const user = useSelector((state) => state.user.account);
-    console.log(user)
     const handleThanhToan = () => {
         if (!user?.account?.HoTen) {
             alert("Vui lòng đăng nhập trước khi thanh toán !")

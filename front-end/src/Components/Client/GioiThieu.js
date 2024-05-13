@@ -27,7 +27,7 @@ const GioiThieu = () => {
                         </div>
                         <div className="document__content typography">
                             {data.map((item, index) => (
-                                <p>{item.NoiDung}
+                                <p key={index}>{item.NoiDung}
                                 </p>
                             ))}
                         </div>

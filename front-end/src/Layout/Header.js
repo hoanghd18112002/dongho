@@ -20,7 +20,6 @@ const Header = () => {
 
     const onLogout = () => {
         dispatch(logout());
-        console.log(dispatch(logout()))
         navige('/');
     };
 
@@ -36,13 +35,11 @@ const Header = () => {
             console.error("Search term is undefined or empty.");
             // You may handle this case based on your requirements, such as showing an error message to the user.
         }
-        console.log(searchTerm)
     };
     const getLoaiSP = async () => {
         try {
             const res = await GetLoaiSanPhamALL();
             const data = res && res.data ? res.data : res
-            console.log(data)
             setLoaisp(data);
         } catch (error) {
             console.error('Error fetching data:', error);
@@ -161,11 +158,9 @@ const Header = () => {
                                             </Nav.Link>
                                         </div>
                                         <Nav.Item className="indicator indicator--trigger--click">
-                                            <Nav.Link as={Link} to="/giohang" className="indicator__button">
-                                                <span className="indicator__area">
-                                                    <svg width="20px" height="20px">
-                                                        <use xlinkHref="/assets/images/sprite.svg#cart-20"></use>
-                                                    </svg>
+                                            <Nav.Link className="indicator__button">
+                                                <span className="indicator__area" onClick={() => navige(`giohang`)}>
+                                                    <i className="fas fa-shopping-cart"></i>
                                                     <span className="indicator__value">{totalQuantity}</span>
                                                 </span>
                                             </Nav.Link>

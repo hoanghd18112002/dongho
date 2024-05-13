@@ -10,7 +10,6 @@ const LienHe = () => {
         try {
             const res = await GetLienHeALL();
             const data = res && res.data ? res.data : res
-            console.log(data)
             setData(data);
         } catch (error) {
             console.error('Error fetching data:', error);
