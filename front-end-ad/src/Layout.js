@@ -8,6 +8,7 @@ import DangNhap from './Components/Auth/Login';
 import Dashboard from './Components/Dashboard';
 import Slide from './Components/Slide/slide';
 import GioiThieu from './Components/GioiThieu/gioithieu';
+import LienHe from './Components/LienHe/lienhe';
 
 
 const Layout = () => {
@@ -22,6 +23,7 @@ const Layout = () => {
                         <Route path='ad-slide' element={<Slide />} />
                         <Route path='ad-loaisp' element={<LoaiSanPham />} />
                         <Route path='ad-gioithieu' element={<GioiThieu />} />
+                        <Route path='ad-lienhe' element={<LienHe />} />
                         <Route path='ad-donhang' element={<DonHangAd />} />
                     </Route>
                     <Route path='/login' element={<DangNhap />} />

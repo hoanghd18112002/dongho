@@ -85,7 +85,9 @@ const SideBar = () => {
                             <Link className="collapse-item" to="/ad-loaisp">Quản lý loại sản phẩm</Link>
                             <Link className="collapse-item" to="/ad-slide">Quản lý Slide</Link>
                             <Link className="collapse-item" to="/ad-gioithieu">Quản lý giới thiệu</Link>
+                            <Link className="collapse-item" to="/ad-lienhe">Quản lý liên hệ </Link>
                             <Link className="collapse-item" to="/ad-donhang">Quản lý đơn hàng</Link>
+
                         </div>
                     </div>
                 </li>

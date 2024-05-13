@@ -1,6 +1,6 @@
 import React from 'react';
 
-const TableQuyen = (props) => {
+const TableGioiThieu = (props) => {
 
     const { data, hanleClickUpdate, hanleClickDelete } = props
     return (
@@ -42,4 +42,4 @@ const TableQuyen = (props) => {
     )
 }
 
-export default TableQuyen;
+export default TableGioiThieu;

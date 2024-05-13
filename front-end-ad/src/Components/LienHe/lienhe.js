@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import TableGioiThieu from './TableGioiThieu';
-import { getALL } from '../../services/gioithieuService';
+import TableLienHe from './TableLienHe';
+import { getALL } from '../../services/lienheService';
 import ModalAddNew from './ModalAddNew';
 import { FcPlus } from "react-icons/fc";
 import ModalDelete from './ModalDelete';
 import ModalUpdate from './ModalUpdate';
-const GioiThieu = () => {
+const LienHe = () => {
     const [data, setData] = useState([]);
     const [dataEdit, setDataEdit] = useState({});
     const [showModalAddNew, setShowModalAddNew] = useState(false);
@@ -15,10 +15,10 @@ const GioiThieu = () => {
 
 
     useEffect(() => {
-        getAllGioiThieu();
+        getAllLienHe();
     }, [])
 
-    const getAllGioiThieu = async () => {
+    const getAllLienHe = async () => {
         try {
             const res = await getALL();
             const data = res && res.data ? res.data : res
@@ -48,13 +48,13 @@ const GioiThieu = () => {
 
                 <div className="card-body">
                     <div className="table-responsive">
-                        <TableGioiThieu
+                        <TableLienHe
                             data={data}
                             hanleClickUpdate={hanleClickUpdate}
                             hanleClickDelete={hanleClickDelete}
                         />
                         <ModalAddNew
-                            getAllGioiThieu={getAllGioiThieu}
+                            getAllLienHe={getAllLienHe}
                             setShow={setShowModalAddNew}
                             show={showModalAddNew}
                         />
@@ -63,13 +63,13 @@ const GioiThieu = () => {
                             setShow={setShowModalUpdate}
                             dataEdit={dataEdit}
                             setDataEdit={setDataEdit}
-                            getAllGioiThieu={getAllGioiThieu}
+                            getAllLienHe={getAllLienHe}
                         />
                         <ModalDelete
                             show={showModalDelete}
                             setShow={setShowModalDelete}
                             dataDelete={dataDelete}
-                            getAllGioiThieu={getAllGioiThieu}
+                            getAllLienHe={getAllLienHe}
                         />
                     </div>
                 </div>
@@ -78,4 +78,4 @@ const GioiThieu = () => {
     )
 }
 
-export default GioiThieu;
+export default LienHe;

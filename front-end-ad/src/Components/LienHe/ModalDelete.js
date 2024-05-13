@@ -1,9 +1,9 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Swal from 'sweetalert2';
-import { DeleteGioiThieu } from '../../services/gioithieuService';
+import { DeleteLienHe } from '../../services/lienheService';
 const ModalDelete = (props) => {
-    const { show, setShow, dataDelete, getAllGioiThieu } = props;
+    const { show, setShow, dataDelete, getAllLienHe } = props;
     const handleClose = () => {
         setShow(false);
     }
@@ -19,12 +19,12 @@ const ModalDelete = (props) => {
             // Nếu người dùng chọn "Xóa"
             if (willDelete) {
                 // Gọi action deleteLoaisp từ Redux dispatch
-                const res = await DeleteGioiThieu(dataDelete.ID)
+                const res = await DeleteLienHe(dataDelete.ID)
                 if (res) {
                     // Hiển thị thông báo xóa thành công
                     Swal.fire("Thành công!", "Xóa thành công!", "success");
                     // Cập nhật danh sách loại sản phẩm
-                    await getAllGioiThieu();
+                    await getAllLienHe();
                     // Đóng modal
                     handleClose();
                 }
@@ -45,7 +45,7 @@ const ModalDelete = (props) => {
                 <Modal.Header closeButton>
                     <Modal.Title>Xác nhận xóa  </Modal.Title>
                 </Modal.Header>
-                <Modal.Body>Bạn có chắc chắn muốn xóa giới thiệu có ID:
+                <Modal.Body>Bạn có chắc chắn muốn xóa liên hệ có ID:
                     {dataDelete && dataDelete.ID ? dataDelete.ID : ""} không ?</Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
