@@ -1,7 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Container, Row, Col, Card } from 'react-bootstrap';
-
 const ThongTinUser = () => {
     const user = useSelector((state) => state.user.account);
     return (
